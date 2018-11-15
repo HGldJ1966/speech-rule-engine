@@ -304,6 +304,7 @@ sre.SemanticSkeleton.tree_ = function(node) {
  */
 sre.SemanticSkeleton.combineContentChildren = function(
     semantic, content, children) {
+  console.log('Combining: ' + semantic.type);
   switch (semantic.type) {
     case sre.Semantic.Type.RELSEQ:
     case sre.Semantic.Type.INFIXOP:

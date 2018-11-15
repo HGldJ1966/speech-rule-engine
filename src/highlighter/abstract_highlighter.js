@@ -141,7 +141,7 @@ sre.AbstractHighlighter.prototype.setColor = function(color) {
  * @protected
  */
 sre.AbstractHighlighter.prototype.colorString = function() {
-  return this.color.rgba();
+  return this.color.rgb();
 };
 
 

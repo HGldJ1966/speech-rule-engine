@@ -109,7 +109,9 @@ sre.EnrichMathml.Attribute = {
 sre.EnrichMathml.enrich = function(mml, semantic) {
   // The first line is only to preserve output. This should eventually be
   // deleted.
+  console.log(semantic.xml());
   var oldMml = mml.cloneNode(true);
+  console.log(oldMml);
   sre.EnrichMathml.walkTree(semantic.root);
   if (sre.Engine.getInstance().structure) {
     mml.setAttribute(sre.EnrichMathml.Attribute.STRUCTURE,

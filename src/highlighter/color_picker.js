@@ -96,6 +96,7 @@ sre.ColorPicker.namedColors_ = {
   red: {red: 255, green: 0, blue: 0},
   green: {red: 0, green: 255, blue: 0},
   blue: {red: 0, green: 0, blue: 255},
+  lightblue: {red: 173, green: 216, blue: 230},
   yellow: {red: 255, green: 255, blue: 0},
   cyan: {red: 0, green: 255, blue: 255},
   magenta: {red: 255, green: 0, blue: 255},

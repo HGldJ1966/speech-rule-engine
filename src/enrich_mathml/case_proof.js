@@ -48,9 +48,12 @@ goog.inherits(sre.CaseProof, sre.AbstractEnrichCase);
  * @override
  */
 sre.CaseProof.test = function(semantic) {
+  console.log('In test');
+  console.log(semantic);
   return semantic.mathmlTree &&
     (semantic.type === sre.SemanticAttr.Type.INFERENCE ||
      semantic.type === sre.SemanticAttr.Type.PREMISES);
+  // return false;
 };
 
 
@@ -63,6 +66,18 @@ sre.CaseProof.prototype.getMathml = function() {
   if (!this.semantic.childNodes.length) {
     return this.mml;
   }
+  this.semantic.contentNodes.forEach(
+    function(x) {
+      x.childNodes.forEach(function(y) {
+        sre.EnrichMathml.walkTree(/**@type{!sre.SemanticNode}*/(y));
+      });
+      console.log('Setting');
+      console.log(x);
+      console.log(x.mathmlTree);
+      sre.EnrichMathml.setAttributes(
+        /**@type{!Element}*/(x.mathmlTree),
+        /**@type{!sre.SemanticNode}*/(x));
+    });
   this.semantic.childNodes.forEach(
     function(x) {
       sre.EnrichMathml.walkTree(/**@type{!sre.SemanticNode}*/(x));

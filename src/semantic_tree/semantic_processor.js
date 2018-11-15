@@ -2491,23 +2491,66 @@ sre.SemanticProcessor.prototype.inference = function(node, semantics, parse) {
 };
 
 sre.SemanticProcessor.prototype.getLabel = function(node, children, parse, side) {
-  var label = children.find(function(x) {
-    return sre.SemanticProcessor.findSemantics(x, 'prooflabel', side);
-  });
+  console.log('Getting label');
+  console.log(node);
+  console.log(children);
+  var label = this.findNestedRow(children, 'prooflabel', side);
   console.log(label);
   var sem = this.factory_.makeBranchNode(sre.SemanticAttr.Type.RULELABEL,
                                          parse(label.childNodes), []);
   sem.role = side;
+  sem.mathmlTree = label;
   return sem;
+};
+
+
+/**
+ * Finds a semantic expression in the nodes down two rows.
+ * @param {Array.<Element>} nodes A row of nodes.
+ * @param {string} attr The attribute name.
+ * @param {string=} opt_value The attribute value.
+ * @return {Element} The node containing the semantic attribute (plus value).
+ */
+sre.SemanticProcessor.prototype.findNestedRow = function(nodes, attr, opt_value) {
+  console.log('find 1');
+  return this.findNestedRow_(nodes, attr, 0, opt_value);
+};
+
+
+/**
+ * Finds a semantic expression in the nodes down two rows.
+ * @param {Array.<Element>} nodes A row of nodes.
+ * @param {string} attr The attribute name.
+ * @param {number} counter The depths counter.
+ * @param {string=} opt_value The attribute value.
+ * @return {Element} The node containing the semantic attribute (plus value).
+ * @private
+ */
+sre.SemanticProcessor.prototype.findNestedRow_ = function(
+  nodes, attr, counter, opt_value) {
+  console.log('find 2: ' + attr);
+  if (counter > 3) {
+    return null;
+  }
+  for (var i = 0, node; node = nodes[i]; i++) {
+    var tag = sre.DomUtil.tagName(node);
+    if (tag === 'MSPACE') continue;
+    if (tag === 'MROW') {
+      return this.findNestedRow_(sre.DomUtil.toArray(node.childNodes),
+                                 attr, counter + 1, opt_value);
+    }
+    if (sre.SemanticProcessor.findSemantics(node, attr, opt_value)) {
+      return node;
+    }
+  }
+  return null;
 };
 
 
 sre.SemanticProcessor.prototype.getTable = function(node, children, parse) {
   console.log('Getting table');
   console.log(node);
-  var inf = children.length ? children.find(function(x) {
-    return sre.SemanticProcessor.findSemantics(x, 'inferenceRule');
-  }) : node;
+  var inf = children.length ? this.findNestedRow(children, 'inferenceRule') : node;
   console.log('Getting top row');
   console.log(inf);
   var premTable = inf.childNodes[0].childNodes[0].childNodes[0];

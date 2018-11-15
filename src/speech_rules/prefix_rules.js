@@ -217,6 +217,28 @@ sre.PrefixRules.initPrefixRules_ = function() {
       '[t] CSFordinalPosition; [t] "Column"; [p] (pause:200)',
       'self::cell'
   );
+
+  defineRule(
+    'premises', 'prefix.default',
+    '[t] count(children/*); [t] "Premises"', 'self::premises'
+  );
+  defineRule(
+    'premises', 'prefix.default',
+    '[t] "Premise"', 'self::premises', 'count(children/*)<2'
+  );
+  defineRule(
+    'conclusion', 'prefix.default',
+    '[t] "Conclusion"', 'self::conclusion'
+  );
+  defineRule(
+    'label', 'prefix.default',
+    '[t] "Label"', 'self::rulelabel'
+  );
+  defineRule(
+      'premise', 'prefix.default',
+      '[t] CSFordinalPosition; [t] "Premise"; [p] (pause:200)',
+      'self::*', 'parent::*/parent::premises'
+  );
 };
 
 });  // goog.scope

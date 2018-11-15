@@ -1261,6 +1261,38 @@ sre.MathspeakRules.initMathspeakRules_ = function() {
       '[n] children/*[1]; [t] "per"; [n] children/*[2]',
       'self::fraction', '@role="unit"');
 
+  // Inference rules
+  defineRule(
+    'inference', 'mathspeak.default',
+    '[t] "Inference rule"; [m] content/*; [t] "with conclusion";' +
+      ' [n] children/*[1]; [t] "and"; ' +
+      '[t] count(children/*[2]/children/*); [t] "premises"',
+    'self::inference'
+  );
+  defineRule(
+    'inference', 'mathspeak.default',
+    '[t] "Inference rule"; ; [m] content/*; [t] "with conclusion";' +
+      ' [n] children/*[1]; [t] "and"; ' +
+      '[t] count(children/*[2]/children/*); [t] "premise"',
+    'self::inference', 'count(children/*[2]/children/*)<2'
+  );
+
+  defineRule(
+    'premise', 'mathspeak.default',
+    '[m] children/* (ctxtFunc:CTXFordinalCounter,context:"Premise ");',
+    'self::premises'
+  );
+
+  defineRule(
+    'conclusion', 'mathspeak.default',
+    '[n] children/*[1]', 'self::conclusion'
+  );
+
+  defineRule(
+    'label', 'mathspeak.default',
+    '[t] "Label"; [n] children/*[1]', 'self::rulelabel'
+  );
+
 };
 
 
