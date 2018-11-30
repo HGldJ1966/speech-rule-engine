@@ -43,7 +43,7 @@ goog.inherits(sre.TreeSpeechGenerator, sre.AbstractSpeechGenerator);
  */
 sre.TreeSpeechGenerator.prototype.getSpeech = function(node, xml) {
   var speech = this.generateSpeech(node, xml);
-  node.setAttribute(sre.EnrichMathml.Attribute.SPEECH, speech);
+  node.setAttribute(this.getAttribute(), speech);
   var nodes = this.getRebuilt().nodeDict;
   for (var key in nodes) {
     //TODO: Refactor with setting the base semantic tree in the enrich mathml

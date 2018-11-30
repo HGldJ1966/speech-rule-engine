@@ -41,6 +41,13 @@ sre.SpeechGenerator.prototype.getSpeech = function(node, xml) {};
 
 
 /**
+ * Returns the speech string attribute for the generator..
+ * @return {sre.EnrichMathml.Attribute} The speech string in the attribute if it
+ *      exists.
+ */
+sre.SpeechGenerator.prototype.getAttribute = function() {};
+
+/**
  * Returns the semantic tree rebuilt from the base xml element.
  * @return {sre.RebuildStree} The reconstructed semantic tree.
  */

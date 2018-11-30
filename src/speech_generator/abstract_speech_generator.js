@@ -26,6 +26,7 @@ goog.require('sre.AuralRendering');
 goog.require('sre.RebuildStree');
 goog.require('sre.SpeechGenerator');
 goog.require('sre.SpeechGeneratorUtil');
+goog.require('sre.WalkerUtil');
 
 
 
@@ -40,6 +41,8 @@ sre.AbstractSpeechGenerator = function() {
    * @private
    */
   this.rebuilt_ = null;
+
+  this.locale_ = sre.Engine.getInstance().locale;
 };
 
 
@@ -63,6 +66,15 @@ sre.AbstractSpeechGenerator.prototype.setRebuilt = function(rebuilt) {
  * @override
  */
 sre.AbstractSpeechGenerator.prototype.getSpeech = goog.abstractMethod;
+
+
+/**
+ * @override
+ */
+sre.AbstractSpeechGenerator.prototype.getAttribute = function() {
+  return /** @type {sre.EnrichMathml.Attribute} */(
+    sre.EnrichMathml.Attribute.SPEECH + '-' + this.locale_);
+};
 
 
 /**
