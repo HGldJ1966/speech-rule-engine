@@ -42,5 +42,6 @@ goog.inherits(sre.DirectSpeechGenerator, sre.AbstractSpeechGenerator);
  * @override
  */
 sre.DirectSpeechGenerator.prototype.getSpeech = function(node, xml) {
-  return sre.WalkerUtil.getAttribute(node, this.getAttribute());
+  return sre.WalkerUtil.getAttribute(node, this.getAttribute()) ||
+    sre.WalkerUtil.getAttribute(node, sre.EnrichMathml.Attribute.SPEECH);
 };

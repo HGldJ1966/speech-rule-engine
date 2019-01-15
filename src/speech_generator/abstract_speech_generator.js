@@ -42,7 +42,11 @@ sre.AbstractSpeechGenerator = function() {
    */
   this.rebuilt_ = null;
 
-  this.locale_ = sre.Engine.getInstance().locale;
+};
+
+
+sre.AbstractSpeechGenerator.prototype.locale_ = function() {
+    return sre.Engine.getInstance().locale;
 };
 
 
@@ -73,7 +77,7 @@ sre.AbstractSpeechGenerator.prototype.getSpeech = goog.abstractMethod;
  */
 sre.AbstractSpeechGenerator.prototype.getAttribute = function() {
   return /** @type {sre.EnrichMathml.Attribute} */(
-    sre.EnrichMathml.Attribute.SPEECH + '-' + this.locale_);
+    sre.EnrichMathml.Attribute.SPEECH + '-' + this.locale_());
 };
 
 
